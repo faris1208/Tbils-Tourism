@@ -1,0 +1,4 @@
+"use client";
+import { useState } from "react";
+import { packages } from "@/lib/packages";
+export default function Admin(){const [items,setItems]=useState(packages.map(p=>({...p,published:true})));return <main className="admin-page"><div className="container"><p className="gold">TBILS ADMIN · DEMO</p><h1>Package catalogue</h1><p>Manage draft and published packages. Changes are local until a backend is connected.</p><button className="primary-button" onClick={()=>setItems(x=>[...x,{...packages[0],slug:`draft-${Date.now()}`,title:"New draft package",published:false}])}>Create package</button><div className="admin-table">{items.map(item=><article key={item.slug}><div><b>{item.title}</b><span>{item.destination} · {item.category}</span></div><button onClick={()=>setItems(x=>x.map(p=>p.slug===item.slug?{...p,published:!p.published}:p))}>{item.published?"Published":"Draft"}</button></article>)}</div></div></main>}

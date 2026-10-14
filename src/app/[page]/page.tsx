@@ -1,0 +1,27 @@
+import { notFound } from "next/navigation";
+import Link from "next/link";
+
+const content: Record<string,{eyebrow:string;title:string;copy:string;items:string[]}> = {
+  tours:{eyebrow:"Guided journeys",title:"Tours made for the way you travel",copy:"Explore small-group and private guided journeys with every essential considered.",items:["City discovery tours","Nature and adventure","Food and culture","Private guides"]},
+  experiences:{eyebrow:"Make the trip memorable",title:"Experiences worth travelling for",copy:"Build a holiday around moments that stay with you long after you return.",items:["Wellness escapes","Food and culture","Water adventures","Family days out"]},
+  destinations:{eyebrow:"Go further",title:"Find your next favourite place",copy:"A considered collection of destinations across Africa and the world.",items:["Africa","Middle East","Indian Ocean","Europe"]},
+  deals:{eyebrow:"Limited offers",title:"Travel a little further for less",copy:"See our current collection of value-led holiday packages.",items:["Beach escapes","City breaks","Safari adventures","Family holidays"]},
+  "travel-guides":{eyebrow:"Travel smarter",title:"Guides for every kind of getaway",copy:"Practical, human advice to help make your next trip effortless.",items:["When to go","Visa guidance","Packing lists","Travel inspiration"]},
+  flights:{eyebrow:"Flights",title:"Your journey starts here",copy:"Compare flight options as part of a complete, tailored holiday plan.",items:["International flights","Regional flights","Flexible fares","Travel support"]},
+  hotels:{eyebrow:"Places to stay",title:"Stays with a sense of place",copy:"Find accommodation that fits the pace and purpose of your trip.",items:["Beach resorts","City hotels","Boutique stays","Safari lodges"]},
+  transfers:{eyebrow:"Travel smoothly",title:"Transfers without the friction",copy:"Arrange dependable airport and destination transfers before you leave.",items:["Airport pickup","Private drivers","Group transfers","Accessible travel"]},
+  insurance:{eyebrow:"Travel with confidence",title:"Insurance for the unexpected",copy:"Understand travel cover options before your next holiday.",items:["Medical cover","Trip disruption","Baggage cover","Support abroad"]},
+  "visa-assistance":{eyebrow:"Travel documents",title:"Visa guidance made clearer",copy:"Get help understanding destination requirements and preparing your application.",items:["Requirement checks","Document guidance","Application support","Travel advice"]},
+  about:{eyebrow:"About TBILS",title:"We make the journey feel easy",copy:"TBILS designs thoughtful travel experiences for people ready to see more of the world.",items:["Our approach","Travel experts","Our values","Partner network"]},
+  contact:{eyebrow:"We are here",title:"Let’s plan something remarkable",copy:"Speak with a TBILS travel expert about your next holiday.",items:["Travel planning","Existing bookings","Partnerships","General enquiries"]},
+  blog:{eyebrow:"Travel notes",title:"Stories to take you somewhere",copy:"Ideas, guides and local insight for your next escape.",items:["Destination guides","Travel trends","Food and culture","Planning tips"]},
+  careers:{eyebrow:"Work with us",title:"Help people see more of the world",copy:"Explore a career with a travel company built around curiosity and care.",items:["Open roles","Our culture","Benefits","Meet the team"]},
+  "help-centre":{eyebrow:"Support",title:"How can we help?",copy:"Quick answers and clear guidance for planning and managing a holiday.",items:["Booking help","Payments","Changes and cancellations","Travel documents"]},
+  "manage-booking":{eyebrow:"Your trip",title:"Manage a booking",copy:"Sign in to view your itinerary, traveller details and booking updates.",items:["View itinerary","Update travellers","Add extras","Contact support"]},
+  cancellation:{eyebrow:"Support",title:"Changes and cancellations",copy:"Find clear guidance about changing or cancelling a planned holiday.",items:["Cancellation options","Supplier terms","Refund timing","Contact support"]},
+  refunds:{eyebrow:"Support",title:"Refund information",copy:"Understand how eligible refunds are processed and when to expect them.",items:["Eligibility","Processing times","Payment methods","Support"]},
+  terms:{eyebrow:"Legal",title:"Terms and conditions",copy:"The terms that apply when you browse, plan and book with TBILS.",items:["Bookings","Payments","Changes","Responsibilities"]},
+  privacy:{eyebrow:"Legal",title:"Privacy policy",copy:"How TBILS collects, uses and protects personal information.",items:["Information collected","How it is used","Your choices","Contact"]},
+  cookies:{eyebrow:"Legal",title:"Cookie policy",copy:"How cookies help improve your TBILS website experience.",items:["Essential cookies","Analytics","Preferences","Your controls"]},
+};
+export default async function ContentPage({params}:{params:Promise<{page:string}>}){const {page}=await params;const data=content[page];if(!data)notFound();return <main className="content-page"><div className="container"><p className="gold">{data.eyebrow}</p><h1>{data.title}</h1><p>{data.copy}</p><div className="content-grid">{data.items.map(item=><article key={item}><span>01</span><h2>{item}</h2><p>Thoughtful guidance from the TBILS travel team, designed around your trip.</p></article>)}</div><Link className="primary-button" href="/holidays">Explore holidays</Link></div></main>}
