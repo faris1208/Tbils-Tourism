@@ -18,11 +18,8 @@ function WhatsAppButton({ className = "" }: { className?: string }) {
 export function QatarLanding() {
   return <div className="qatar-offer">
     <section className="qatar-offer__hero" aria-label="Christmas in Qatar campaign">
-      <picture>
-        <source media="(max-width: 520px)" srcSet="/qatar_tourism_mobile.jpeg" />
-        <source media="(max-width: 1024px)" srcSet="/qatar_tourism_tablet.jpeg" />
-        <img src="/qatar_tourism_desktop.jpeg" alt="Christmas in Qatar holiday package from Lagos" />
-      </picture>
+      <picture><img src="/WhatsApp Image 2026-10-16 at 16.25.00.jpeg" alt="Christmas in Qatar holiday package from Lagos" /></picture>
+      <WhatsAppButton className="qatar-offer__hero-cta" />
     </section>
 
     <section className="qatar-offer__booking" aria-labelledby="qatar-offer-title">
