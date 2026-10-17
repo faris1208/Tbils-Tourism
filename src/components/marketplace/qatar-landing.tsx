@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const whatsappNumber = "2349038797700";
 const whatsappMessage = "Hello TBILS, I would like to apply for the Christmas in Qatar package (21–27 December 2026).";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
@@ -16,10 +20,43 @@ function WhatsAppButton({ className = "" }: { className?: string }) {
 }
 
 export function QatarLanding() {
+  const [secondsRemaining, setSecondsRemaining] = useState(30);
+
+  useEffect(() => {
+    const inactivityDelay = 30_000;
+    let redirectTimer: number | undefined;
+    let countdownTimer: number | undefined;
+
+    const redirectToWhatsApp = () => window.location.assign(whatsappUrl);
+
+    const resetInactivityTimer = () => {
+      window.clearTimeout(redirectTimer);
+      window.clearInterval(countdownTimer);
+
+      const deadline = Date.now() + inactivityDelay;
+      setSecondsRemaining(30);
+      countdownTimer = window.setInterval(() => {
+        setSecondsRemaining(Math.max(0, Math.ceil((deadline - Date.now()) / 1000)));
+      }, 250);
+      redirectTimer = window.setTimeout(redirectToWhatsApp, inactivityDelay);
+    };
+
+    const activityEvents = ["pointerdown", "keydown", "touchstart"] as const;
+    resetInactivityTimer();
+    activityEvents.forEach((eventName) => window.addEventListener(eventName, resetInactivityTimer, { passive: true }));
+
+    return () => {
+      window.clearTimeout(redirectTimer);
+      window.clearInterval(countdownTimer);
+      activityEvents.forEach((eventName) => window.removeEventListener(eventName, resetInactivityTimer));
+    };
+  }, []);
+
   return <div className="qatar-offer">
     <section className="qatar-offer__hero" aria-label="Christmas in Qatar campaign">
       <picture><img src="/WhatsApp Image 2026-10-16 at 16.25.00.jpeg" alt="Christmas in Qatar holiday package from Lagos" /></picture>
       <WhatsAppButton className="qatar-offer__hero-cta" />
+      <p className="qatar-offer__redirect-notice" style={{ position: "fixed" }} role="status" aria-live="polite">Need help booking? We’ll open WhatsApp in <b>{secondsRemaining}</b>s.</p>
     </section>
 
     <section className="qatar-offer__booking" aria-labelledby="qatar-offer-title">
