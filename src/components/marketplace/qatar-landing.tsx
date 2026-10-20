@@ -16,7 +16,7 @@ const itinerary = [
 ];
 
 function WhatsAppButton({ className = "" }: { className?: string }) {
-  return <a className={`qatar-offer__cta ${className}`} href={whatsappUrl} target="_blank" rel="noreferrer">Apply on WhatsApp <span aria-hidden="true">↗</span></a>;
+  return <a className={`qatar-offer__cta ${className}`} href={whatsappUrl} target="_blank" rel="noreferrer">Apply on WhatsApp</a>;
 }
 
 export function QatarLanding() {
