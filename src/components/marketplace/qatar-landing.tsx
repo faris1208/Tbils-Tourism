@@ -54,7 +54,11 @@ export function QatarLanding() {
 
   return <div className="qatar-offer">
     <section className="qatar-offer__hero" aria-label="Christmas in Qatar campaign">
-      <picture><img src="/WhatsApp Image 2026-10-16 at 16.25.00.jpeg" alt="Christmas in Qatar holiday package from Lagos" /></picture>
+      <picture>
+        <source media="(max-width: 720px)" srcSet="/canada-qatar-bonus-second.jpeg" />
+        <source media="(max-width: 1024px)" srcSet="/canada-qatar-bonus.jpeg" />
+        <img src="/WhatsApp Image 2026-10-16 at 16.25.00.jpeg" alt="Christmas in Qatar holiday package from Lagos" />
+      </picture>
       <WhatsAppButton className="qatar-offer__hero-cta" />
       <p className="qatar-offer__redirect-notice" style={{ position: "fixed" }} role="status" aria-live="polite">Need help booking? We’ll open WhatsApp in <b>{secondsRemaining}</b>s.</p>
     </section>
