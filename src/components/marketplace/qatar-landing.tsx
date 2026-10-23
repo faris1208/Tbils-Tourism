@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-const whatsappNumber = "2349038797700";
 const whatsappMessage = "Hello TBILS, I would like to apply for the Christmas in Qatar package (21–27 December 2026).";
-const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const whatsappContacts = [
+  { number: "2347019104340", displayNumber: "0701 910 4340" },
+  { number: "2349069180611", displayNumber: "0906 918 0611" },
+];
+const whatsappUrl = (number: string) => `https://wa.me/${number}?text=${encodeURIComponent(whatsappMessage)}`;
 
 const inclusions = ["Visa assistance", "Return flights from Lagos", "5-star hotel stay", "Daily breakfast"];
 const itinerary = [
@@ -15,8 +18,11 @@ const itinerary = [
   ["Day 5", "Private shopping"],
 ];
 
-function WhatsAppButton({ className = "" }: { className?: string }) {
-  return <a className={`qatar-offer__cta ${className}`} href={whatsappUrl} target="_blank" rel="noreferrer">Apply on WhatsApp</a>;
+function WhatsAppButtons({ className = "", buttonClassName = "", showBookingLineLabel = false }: { className?: string; buttonClassName?: string; showBookingLineLabel?: boolean }) {
+  return <div className={`qatar-offer__cta-group ${className}`} aria-label="Contact TBILS on WhatsApp">
+    {showBookingLineLabel && <p className="qatar-offer__cta-group-label">Choose a booking line</p>}
+    {whatsappContacts.map(({ number, displayNumber }) => <a key={number} className={`qatar-offer__cta ${buttonClassName}`} href={whatsappUrl(number)} target="_blank" rel="noreferrer"><b className="qatar-offer__cta-label">Apply Now</b><em className="qatar-offer__cta-number">{displayNumber}</em></a>)}
+  </div>;
 }
 
 export function QatarLanding() {
@@ -27,7 +33,7 @@ export function QatarLanding() {
     let redirectTimer: number | undefined;
     let countdownTimer: number | undefined;
 
-    const redirectToWhatsApp = () => window.location.assign(whatsappUrl);
+    const redirectToWhatsApp = () => window.location.assign(whatsappUrl(whatsappContacts[0].number));
 
     const resetInactivityTimer = () => {
       window.clearTimeout(redirectTimer);
@@ -59,13 +65,13 @@ export function QatarLanding() {
         <source media="(max-width: 1024px)" srcSet="/canada-qatar-bonus.jpeg" />
         <img src="/WhatsApp Image 2026-10-16 at 16.25.00.jpeg" alt="Christmas in Qatar holiday package from Lagos" />
       </picture>
-      <WhatsAppButton className="qatar-offer__hero-cta" />
+      <WhatsAppButtons className="qatar-offer__hero-cta" showBookingLineLabel />
       <p className="qatar-offer__redirect-notice" style={{ position: "fixed" }} role="status" aria-live="polite">Need help booking? We’ll open WhatsApp in <b>{secondsRemaining}</b>s.</p>
     </section>
 
     <section className="qatar-offer__booking" aria-labelledby="qatar-offer-title">
       <div><p className="qatar-offer__eyebrow">LAGOS DEPARTURE · 21–27 DECEMBER 2026</p><h1 id="qatar-offer-title">Christmas in <em>Qatar.</em></h1><p className="qatar-offer__intro">Five festive days of city lights, desert adventure and effortless luxury — planned by TBILS.</p></div>
-      <div className="qatar-offer__price-card"><p>Early bird price</p><strong>₦2,700,000</strong><span>per person sharing</span><div><b>₦3,000,000</b> normal price</div><small>Early bird ends 30 October 2026</small><WhatsAppButton /></div>
+      <div className="qatar-offer__price-card"><p>Early bird price</p><strong>₦2,700,000</strong><span>per person sharing</span><div><b>₦3,000,000</b> normal price</div><small>Early bird ends 30 October 2026</small><WhatsAppButtons /></div>
     </section>
 
     <section className="qatar-offer__details" aria-label="Package details">
@@ -73,6 +79,6 @@ export function QatarLanding() {
       <article><p className="qatar-offer__eyebrow">A FIVE-DAY RHYTHM</p><h2>More than a getaway.</h2><ol>{itinerary.map(([day, item]) => <li key={day}><span>{day}</span>{item}</li>)}</ol></article>
     </section>
 
-    <section className="qatar-offer__final"><p>READY FOR A CHRISTMAS TO REMEMBER?</p><h2>Your Qatar story starts here.</h2><WhatsAppButton className="qatar-offer__cta--light" /></section>
+    <section className="qatar-offer__final"><p>READY FOR A CHRISTMAS TO REMEMBER?</p><h2>Your Qatar story starts here.</h2><WhatsAppButtons buttonClassName="qatar-offer__cta--light" /></section>
   </div>;
 }
